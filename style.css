@@ -1,0 +1,16 @@
+h1{
+    color:cadetblue;
+    
+}
+body{
+    margin: auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+textarea{
+    padding:10px;
+}
+p{
+    /*font-weight: bold;*/
+    line-height: 30px;
+}
