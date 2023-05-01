@@ -6,6 +6,7 @@ body{
     margin: auto;
     text-align: center;
     font-family: Arial, sans-serif;
+    transition: 0.3ss;
 }
 textarea{
     padding:10px;
@@ -13,4 +14,44 @@ textarea{
 p{
     /*font-weight: bold;*/
     line-height: 30px;
+}
+.keyboard{
+    width:670px;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    border:2px solid black;
+    background-color: grey;
+    margin: auto;
+    padding: 10px;
+    border-radius: 5px;
+}
+.stroke{
+    display: flex;
+    gap:10px;
+    justify-content: space-between;
+}
+.key{
+    color: white;
+    background-color:#524e4e;
+    width: 40px;
+    padding: 10px 0;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.key:hover{
+    background-color:cadetblue;
+}
+.functional-key{
+    background-color: #302e2e;
+    color:white;
+    padding: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.functional-key:hover{
+    background-color: cadetblue;
+}
+.space{
+    width:280px;
 }
