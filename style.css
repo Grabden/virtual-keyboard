@@ -1,0 +1,74 @@
+h1{
+    color:cadetblue;
+    
+}
+body{
+    margin: auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    transition: 0.3ss;
+}
+textarea{
+    padding:10px;
+}
+p{
+    /*font-weight: bold;*/
+    line-height: 30px;
+}
+.keyboard{
+    width:670px;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    border:2px solid black;
+    background-color: grey;
+    margin: auto;
+    padding: 10px;
+    border-radius: 5px;
+}
+.stroke{
+    display: flex;
+    gap:10px;
+    justify-content: space-between;
+}
+.key{
+    color: white;
+    background-color:#524e4e;
+    width: 40px;
+    padding: 10px 0;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.key:hover{
+    background-color:cadetblue;
+}
+.functional-key{
+    background-color: #302e2e;
+    color:white;
+    padding: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.functional-key:hover{
+    background-color: cadetblue;
+}
+.space{
+    width:280px;
+    background-color:#524e4e;
+}
+.functional-key.active,.key.active{
+    border-radius: 10px;
+    color:aquamarine;
+    animation: 3s infinite alternate slidein;
+}
+@keyframes slidein {
+    from {
+      margin-left: 100%;
+      width: 300%;
+    }
+  
+    to {
+      margin-left: 0%;
+      width: 100%;
+    }
+  }
