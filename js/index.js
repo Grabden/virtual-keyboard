@@ -10,7 +10,9 @@ let strokes1=[[["`1234567890-=","qwertyuiop[]\\","asdfghjkl;'","zxcvbnm,./"],//e
 ["Ё1234567890-=","ЙЦУКЕНГШЩЗХЪ\\","ФЫВАПРОЛДЖЭ","ЯЧСМИТЬБЮ."],//ru caps
 ["Ё!\"№;%:?*()_+","ЙЦУКЕНГШЩЗХЪ/","ФЫВАПРОЛДЖЭ","ЯЧСМИТЬБЮ,"],//ru shift
 ["Ё!\"№;%:?*()_+","йцукенгшщзхъ/","фывапролджэ","ячсмитьбю,"],]];//ru shift caps
-let mainstrokes=strokes1[0][0],caps=0,shift=0,lang=0;
+let caps=0,shift=0,lang=0; 
+localStorage.getItem("caps");
+let mainstrokes=strokes1[lang][caps+shift];
 let keyCode;
 let strokeDescription =[["Backquote","Digit1","Digit2","Digit3","Digit4","Digit5","Digit6","Digit7","Digit8","Digit9","Digit0","Minus","Equal"],
 ["KeyQ","KeyW","KeyE","KeyR","KeyT","KeyY","KeyU","KeyI","KeyO","KeyP","BracketLeft","BracketRight","Backslash"],
@@ -122,7 +124,7 @@ function funcKey(value,...args) {
     return key;
 }
 const tapStrokes=function(textarea,word){
-    //textarea.innerHTML+= word;
+    textarea.innerHTML+= word;
     //console.log(textarea.innerHTML);
 }
 document.addEventListener('keydown', function(event) {
@@ -149,7 +151,6 @@ document.addEventListener('keydown', function(event) {
     }
     if(event.code=="Backspace"){
         textarea.innerHTML=textarea.innerHTML.slice(0,-1);
-        console.log(textarea.innerHTML[textarea.innerHTML.length-1]);
     }
     mainstrokes = strokes1[lang][shift+caps];
     let keys = document.querySelectorAll(".key");
