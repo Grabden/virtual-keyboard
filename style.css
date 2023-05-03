@@ -59,16 +59,14 @@ p{
 .functional-key.active,.key.active{
     border-radius: 10px;
     color:aquamarine;
-    animation: 3s infinite alternate slidein;
+    animation: 1s infinite alternate slidein;
 }
 @keyframes slidein {
     from {
-      margin-left: 100%;
-      width: 300%;
+      background-color: green;
     }
   
     to {
-      margin-left: 0%;
-      width: 100%;
+      background-color:darkgreen;
     }
   }
