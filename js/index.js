@@ -10,9 +10,6 @@ let strokes1=[[["`1234567890-=","qwertyuiop[]\\","asdfghjkl;'","zxcvbnm,./"],//e
 ["Ё1234567890-=","ЙЦУКЕНГШЩЗХЪ\\","ФЫВАПРОЛДЖЭ","ЯЧСМИТЬБЮ."],//ru caps
 ["Ё!\"№;%:?*()_+","ЙЦУКЕНГШЩЗХЪ/","ФЫВАПРОЛДЖЭ","ЯЧСМИТЬБЮ,"],//ru shift
 ["Ё!\"№;%:?*()_+","йцукенгшщзхъ/","фывапролджэ","ячсмитьбю,"],]];//ru shift caps
-let caps=0,shift=0,lang=0; 
-localStorage.getItem("caps");
-let mainstrokes=strokes1[lang][caps+shift];
 let keyCode,keyValue;
 let strokeDescription =[["Backquote","Digit1","Digit2","Digit3","Digit4","Digit5","Digit6","Digit7","Digit8","Digit9","Digit0","Minus","Equal"],
 ["KeyQ","KeyW","KeyE","KeyR","KeyT","KeyY","KeyU","KeyI","KeyO","KeyP","BracketLeft","BracketRight","Backslash"],
@@ -44,10 +41,25 @@ let back = funcKey("Backspace");
     ["ShiftLeft","KeyZ","KeyX","KeyC","KeyV","KeyB","KeyN","KeyM","Comma","Period","Slash","ArrowUp","ShiftRight"],
     ["ControlLeft","MetaLeft","AltLeft","Space","AltRight","ArrowLeft","ArrowDown","ArrowRight","ControlRight"]];
 let dopstrokes=[{key:"ArrowUp",value: "▲"},{key:"ArrowLeft",value: "◄"},{key:"ArrowDown",value:"▼"},{key:"ArrowRight",value:"►"},{key: "Space", value:" "},{key: "Enter", value:"\n"},{key: "Tab", value:"\t"}];
+let textarea = document.createElement("textarea");
+let shift=0,caps,lang; 
+if(typeof localStorage.getItem("caps")=="string"){
+    caps =+localStorage.getItem("caps");
+    if(caps ==1)
+        capslock.classList.add('active');
+}
+else caps=0;
+if(typeof localStorage.getItem("lang")=="string")
+    lang =+localStorage.getItem("lang");
+else lang=0;
+let mainstrokes=strokes1[lang][caps+shift];
+    back.addEventListener('click',function(event){
+        textarea.innerHTML=textarea.innerHTML.slice(0,-1);
+    });
 const createElements=()=>{
     let body = document.querySelector("body");
     let h1 = document.createElement("h1");
-    let textarea = document.createElement("textarea");
+    
     let keyboard = document.createElement("div");
     let p = document.createElement("p");
     addFunctionalToKeyboard(keyboard,textarea);
@@ -60,6 +72,7 @@ const createElements=()=>{
     body.appendChild(textarea);
     body.appendChild(keyboard);
     body.appendChild(p);
+    updateKeys(caps,shift,lang);
 }
 const addFunctionalToKeyboard=function(keyboard,textarea){
     
@@ -170,9 +183,11 @@ function addAnimation(value,key){
     }
 }
 function updateKeys(caps,shift,lang){
+    localStorage.setItem("caps", caps);
+    localStorage.setItem("lang", lang);
+    console.log(localStorage.getItem("caps"));
     mainstrokes = strokes1[lang][shift+caps];
     let keys = document.querySelectorAll(".key");
-    //console.log(keys)
     let len=0;
     for(let i=0;i<4;i++){
         if(i>0) len =mainstrokes[i-1].length+len;
@@ -187,7 +202,6 @@ function updateKeys(caps,shift,lang){
 }
 const tapStrokes=function(textarea,word){
     textarea.innerHTML+= word;
-    //console.log(textarea.innerHTML);
 }
 document.addEventListener('keydown', function(event) {
     for(let i=0;i<mainbut.length;i++){
@@ -202,6 +216,7 @@ document.addEventListener('keydown', function(event) {
     let keyboard = document.querySelector(".keyboard");
     if(((keyCode=="ControlLeft" || keyCode == "ControlRight")&& (event.code == "AltLeft" || event.code == "AltRight"))|| ((event.code=="ControlLeft" || event.code == "ControlRight")&& (keyCode == "AltLeft" || keyCode == "AltRight"))){
         lang=1-lang;
+        keyCode=undefined;
     }
     if(event.code == "CapsLock") {
         caps=1-caps;
@@ -223,10 +238,10 @@ document.addEventListener('keydown', function(event) {
     }
     if(event.code=="Backspace"){
         textarea.innerHTML=textarea.innerHTML.slice(0,-1);
+        console.log(localStorage.getItem("caps"));
     }
     updateKeys(caps,shift,lang);
     keyCode=event.code;
-    console.log();
 });
 document.addEventListener('keyup', function(event) {
     for(let i=0;i<mainbut.length;i++){
@@ -242,5 +257,4 @@ document.addEventListener('keyup', function(event) {
         shift=0;
     }
     updateKeys(caps,shift,lang);
-    //addFunctionalToKeyboard(keyboard,textarea);
 });
